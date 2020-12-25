@@ -2,13 +2,13 @@ import app from 'firebase/app';
 
 const firebase = () => {
     let config = {
-        apiKey: process.env,
-        authDomain: "stable-hybrid-299410.firebaseapp.com",
-        projectId: "stable-hybrid-299410",
-        storageBucket: "stable-hybrid-299410.appspot.com",
-        messagingSenderId: "638477788138",
-        appId: "1:638477788138:web:a42361119d15c2bff00893",
-        measurementId: "G-2TM4Q4KMK6"
+        apiKey: process.env.REACT_APP_API_KEY,
+        authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+        projectId: process.env.REACT_APP_PROJECT_ID,
+        storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+        messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+        appId: process.env.REACT_APP_APP_ID,
+        measurementId: process.env.REACT_APP_MEASUREMENT_ID
     };
     app.initializeApp(config);
     app.analytics();
