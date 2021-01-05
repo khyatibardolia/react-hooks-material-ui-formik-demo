@@ -1,10 +1,10 @@
 import {combineReducers} from "redux";
 
-import PaginationReducer from "./paginationReducer";
+import MovieBrowserReducer from "./movieBrowserReducer";
 
 /*combine all reducers*/
 const reducers = combineReducers({
-    PaginationReducer,
+    MovieBrowserReducer,
 });
 
 export default reducers;

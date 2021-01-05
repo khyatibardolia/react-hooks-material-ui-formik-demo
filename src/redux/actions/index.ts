@@ -3,6 +3,7 @@ import {
     CALL_API_SUCCESSFULLY,
     CHANGE_PAGE
 } from '../../api/constants';
+import {Db} from "../../api/config";
 
 export const callAPI = (payload: any) => ({
     type: CALL_API,
@@ -14,9 +15,13 @@ export const callAPISuccessfully = (payload: any) => ({
     payload
 });
 
-export const changePage = (payload: any) => {
-    return {
-        type: CHANGE_PAGE,
-        payload
-    }
+export const AddUsersAction = (data: any) => {
+    console.log('action called');
+    return Db.ref(`users`).push(data)
+        .then((data: any) => {
+            return {
+                type: "ADD_USERS",
+                data
+            }
+        });
 };

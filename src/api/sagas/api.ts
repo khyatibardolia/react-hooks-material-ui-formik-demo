@@ -1,41 +1,56 @@
 import { all, put, takeEvery } from 'redux-saga/effects';
 import axios from "axios";
+import {ADD_USER, AUTH_USER_INFO} from "../constants";
+import {AddUsersAction} from '../../redux/actions'
+import {Db} from "../config";
+import {loginWithGoogle} from "../auth";
 
-import {CALL_API, CHANGE_PAGE} from "../constants";
-import {callAPI, callAPISuccessfully} from '../../redux/actions'
-
-function* callApi(action: any){
+/*function* callApi(action: any){
     try {
         const res = yield axios.get(`https://randomuser.me/api/?page=${action.payload}&results=10&seed=abc`);
-        /*call action after api response*/
+        /!*call action after api response*!/
         yield put(callAPISuccessfully(res.data.results));
     } catch (error) {
         console.error(error);
     }
-}
+}*/
 
-function* changePage(action: any){
+// * indicates a generator function and it would execute code line-by-line
+// so if there is an error in first line it stops executing further.
+function* addUser(payload: any){
     try {
         /*call action*/
-        yield put(callAPI(action.payload));
+        //The yield keyword is used to pause and resume a generator function.
+        // basically yield is kind of an observer
+        yield put({type: AddUsersAction, payload: payload});
     } catch (e) {
         console.log(e);
     }
 }
 
-/*watch function for api*/
-export function* watchCustomCallApi() {
-    yield takeEvery(CALL_API, callApi)
+function* getAuthUser(payload: any){
+    try {
+        /*call action*/
+        //The yield keyword is used to pause and resume a generator function.
+        // basically yield is kind of an observer
+        yield put({type: loginWithGoogle, payload: payload});
+    } catch (e) {
+        console.log(e);
+    }
 }
 
-/*watch function for page change*/
-export function* watchChangePage() {
-    yield takeEvery(CHANGE_PAGE, changePage)
+/*watch function for add user*/
+export function* watchAddUser() {
+    yield takeEvery(ADD_USER, addUser)
+}
+
+export function* watchAuthUser() {
+    yield takeEvery(AUTH_USER_INFO, getAuthUser)
 }
 
 export default function* rootSaga() {
     yield all([
-        watchCustomCallApi(),
-        watchChangePage()
+        watchAddUser(),
+        watchAuthUser()
     ]);
 }
