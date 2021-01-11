@@ -16,7 +16,7 @@ export const Authenticate: React.FC = () => {
         <div className={'background-img w-100 h-100'}>
             <div className={'container w-100 h-100'}>
                 <div className={'row w-100 h-100 m-0 p-0 d-flex justify-content-center align-items-center'}>
-                    <Card className={'w-50 h-75 p-4 text-center'} variant="outlined">
+                    <Card className={'login-card w-50 h-75 p-4 text-center'} variant="outlined">
                         <CardContent className={''}>
                             <Typography
                                 className='d-flex justify-content-center align-items-center py-2'

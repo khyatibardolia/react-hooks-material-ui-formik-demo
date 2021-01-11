@@ -2,14 +2,14 @@ import * as React from "react";
 import './App.css';
 import {AppRouting} from "./router/appRouting";
 import {Provider} from 'react-redux';
-import {configureStore} from "./redux/store";
-import { ToastContainer } from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import store from "./redux/store";
 
-function App() {
+export const App: React.FC = () => {
     return (
         <div className={'w-100 h-100'}>
-            <Provider store={configureStore()}>
+            <Provider store={store}>
                 <ToastContainer position="top-right"
                                 autoClose={4000}
                                 hideProgressBar
@@ -18,10 +18,8 @@ function App() {
                                 rtl={false}
                                 draggable
                                 pauseOnHover/>
-            <AppRouting/>
+                <AppRouting/>
             </Provider>
         </div>
     );
-}
-
-export default App;
+};

@@ -2,12 +2,12 @@ import React, {useState, useCallback} from "react";
 import './login.scss';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button/Button";
-import {loginWithGoogle, loginWithPassword, signUpWithPassword} from "../../../api/auth";
+/*import {loginWithGoogle, loginWithPassword, signUpWithPassword} from "../../../redux/actions/auth";*/
 import {Formik, FormikHelpers, FormikProps, Form, Field} from "formik";
 import * as Yup from "yup";
 import {RenderTextField} from "../../../common/fields/RenderTextField";
-import {AddUsersAction} from "../../../redux/actions";
-import {Auth} from "../../../api/config";
+import {googleLogin, loginWithPassword, signUpWithPassword} from "../../../redux/actions";
+/*import {Auth} from "../../../api/config";*/
 import {useDispatch} from "react-redux";
 import { toast } from 'react-toastify';
 import * as routes from '../../../../src/router/constants';
@@ -38,29 +38,16 @@ export const AuthenticateUser: React.FC<otherProps> = (props) => {
     const fnUserAuthentication = (values: any) => {
         console.log('values', values);
         if(!isUserSigningUp) {
-            return loginWithPassword(values.email, values.password).then((response: any) => {
-                 history.push(routes.HOME);
-            }).catch((error: any) => {
-                toast.error(error.message);
-            });
+            console.log('loginwithpass called')
+            dispatch(loginWithPassword(values.email, values.password));
         } else {
-            dispatch(signUpWithPassword(values.email, values.password)).then((res: any) => {
-                console.log('res', res);
-                if (res.user) {
-                    Auth.setLoggedIn(true);
-                }
-            }).catch((error: any) => {
-                toast.error(error.message);
-            });
+            dispatch(signUpWithPassword(values.email, values.password))
         }
     };
 
-    const fnLoginWithGoogle = useCallback(() => {
-        dispatch(loginWithGoogle()).then((response: any) => {
-        }).catch((error: any) => {
-            console.log('error', error);
-        });
-    }, [history]);
+    const fnLoginWithGoogle = () => {
+        dispatch(googleLogin())
+    };
 
     return (
         <Formik

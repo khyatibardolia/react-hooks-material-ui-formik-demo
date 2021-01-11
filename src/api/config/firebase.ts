@@ -1,15 +1,11 @@
 import app from 'firebase/app';
-import 'firebase/auth';
+import ReduxSagaFirebase from 'redux-saga-firebase';
 import FIREBASE_CONFIG from '../config/config';
 
-class Firebase {
+const firebaseApp = app.initializeApp(FIREBASE_CONFIG);
 
-    public auth: any;
+const rsf = new ReduxSagaFirebase(firebaseApp);
 
-    constructor() {
-        app.initializeApp(FIREBASE_CONFIG);
-        this.auth = app.auth();
-    }
-}
+export { firebaseApp };
 
-export default Firebase;
+export default rsf;
